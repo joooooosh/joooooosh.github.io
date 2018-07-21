@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="题解,动态规划," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题目描述在N×N的棋盘里面放K个国王，使他们互不攻击，共有多少种摆放方案。国王能攻击到它上下左右，以及左上左下右上右下八个方向上附近的各一个格子，共8个格子。 （ 1 &amp;lt;=N &amp;lt;=9, 0 &amp;lt;= K &amp;lt;= N * N）">
+<meta name="keywords" content="题解,动态规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【SCOI2005】互不侵犯">
+<meta property="og:url" content="http://yoursite.com/2018/07/21/【SCOI2005】互不侵犯/index.html">
+<meta property="og:site_name" content="Josh&#39;s Blog">
+<meta property="og:description" content="题目描述在N×N的棋盘里面放K个国王，使他们互不攻击，共有多少种摆放方案。国王能攻击到它上下左右，以及左上左下右上右下八个方向上附近的各一个格子，共8个格子。 （ 1 &amp;lt;=N &amp;lt;=9, 0 &amp;lt;= K &amp;lt;= N * N）">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-21T14:00:37.874Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【SCOI2005】互不侵犯">
+<meta name="twitter:description" content="题目描述在N×N的棋盘里面放K个国王，使他们互不攻击，共有多少种摆放方案。国王能攻击到它上下左右，以及左上左下右上右下八个方向上附近的各一个格子，共8个格子。 （ 1 &amp;lt;=N &amp;lt;=9, 0 &amp;lt;= K &amp;lt;= N * N）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/21/【SCOI2005】互不侵犯/"/>
+
+
+
+
+
+  <title>【SCOI2005】互不侵犯 | Josh's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Josh's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/【SCOI2005】互不侵犯/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Josh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Josh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【SCOI2005】互不侵犯</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-21T21:02:22+08:00">
+                2018-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>在N×N的棋盘里面放K个国王，使他们互不攻击，共有多少种摆放方案。国王能攻击到它上下左右，以及左上左下右上右下八个方向上附近的各一个格子，共8个格子。 （ 1 &lt;=N &lt;=9, 0 &lt;= K &lt;= N * N） </p>
+<a id="more"></a>
+<h3 id="暴力"><a href="#暴力" class="headerlink" title="暴力"></a>暴力</h3><p>初见此题以为是八皇后的改版<del>八国王</del>，拿起来直接深搜回溯，见暴力代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> n,k,ans,jjj;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> bj[<span class="number">15</span>][<span class="number">15</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> ii,<span class="keyword">int</span> jj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x==k+<span class="number">1</span>) &#123;</span><br><span class="line">        ans++;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=ii; i&lt;=n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i==ii)jjj=jj;</span><br><span class="line">        <span class="keyword">else</span> jjj=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=jjj; j&lt;=n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bj[i][j]==<span class="number">0</span>) &#123;</span><br><span class="line">                bj[i][j]++;bj[i<span class="number">-1</span>][j]++;bj[i+<span class="number">1</span>][j]++;</span><br><span class="line">                bj[i+<span class="number">1</span>][j+<span class="number">1</span>]++;bj[i+<span class="number">1</span>][j<span class="number">-1</span>]++;</span><br><span class="line">                bj[i<span class="number">-1</span>][j+<span class="number">1</span>]++;bj[i<span class="number">-1</span>][j<span class="number">-1</span>]++;</span><br><span class="line">                bj[i][j+<span class="number">1</span>]++;bj[i][j<span class="number">-1</span>]++;</span><br><span class="line">                dfs(x+<span class="number">1</span>,i,j);</span><br><span class="line">                bj[i][j]--;bj[i<span class="number">-1</span>][j]--;bj[i+<span class="number">1</span>][j]--;</span><br><span class="line">                bj[i+<span class="number">1</span>][j+<span class="number">1</span>]--;bj[i+<span class="number">1</span>][j<span class="number">-1</span>]--;</span><br><span class="line">                bj[i<span class="number">-1</span>][j+<span class="number">1</span>]--;bj[i<span class="number">-1</span>][j<span class="number">-1</span>]--;</span><br><span class="line">                bj[i][j+<span class="number">1</span>]--;bj[i][j<span class="number">-1</span>]--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    dfs(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>果然TLE三个点，回头一看数据大小，想来自己还是sometimes naive…</p>
+<h3 id="动态规划正解"><a href="#动态规划正解" class="headerlink" title="动态规划正解"></a>动态规划正解</h3><p>既然是动态规划，就要考虑好<strong>状态</strong>和状态转移<strong>方程</strong>，虽然对于我这个<del>蒟蒻</del>来说找到这个状态并不容易。</p>
+<p>我们用一个三维数组<code>d[sta][t][kk]</code>来表示此状态的摆放方案数，其中<code>sta</code>表示这一行的状态（那些点），<code>t</code>表示处于哪一行，<code>kk</code>表示剩余几个国王还没用</p>
+<p>这样定义状态的话就不难想出状态转移方程了，我们枚举剩余的<code>kk</code>个国王在下一行的状态，来进行状态转移，这样我们还要对于剩余<code>kk</code>个国王在一行中如何排放进行预处理，用<code>m</code>数组维护，因此得到递归模式的方程：<code>d[sta][t][kk]+=dfs(m[i],t+1,kk-tt)</code></p>
+<p>既然是递归，我们就要考虑递归边界，显然递归边界是<code>t==n</code>时，若<code>kk==0</code>则多一种情况（返回1），否则返回0</p>
+<p>预处理函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pre</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> t,<span class="keyword">int</span> tot2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t&gt;k)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(tot2==n) &#123;</span><br><span class="line">        tot++;</span><br><span class="line">        m[tot]=x;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    x&lt;&lt;=<span class="number">1</span>;</span><br><span class="line">    pre(x,t,tot2+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(((x&gt;&gt;<span class="number">1</span>)&amp;<span class="number">1</span>)==<span class="number">0</span>)pre(x+<span class="number">1</span>,t+<span class="number">1</span>,tot2+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>动态规划dfs</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> sta,<span class="keyword">int</span> t,<span class="keyword">int</span> kk)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==n) &#123; <span class="comment">//考虑边界 </span></span><br><span class="line">        <span class="keyword">if</span>(kk==<span class="number">0</span>) <span class="keyword">return</span> d[sta][t][kk]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(d[sta][t][kk]&gt;<span class="number">0</span>)<span class="keyword">return</span> d[sta][t][kk];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=tot; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> l=m[i];</span><br><span class="line">        <span class="keyword">if</span>(((sta&amp;l)==<span class="number">0</span>)&amp;&amp;((sta&amp;(l&lt;&lt;<span class="number">1</span>))==<span class="number">0</span>)&amp;&amp;((sta&amp;(l&gt;&gt;<span class="number">1</span>))==<span class="number">0</span>)) &#123;</span><br><span class="line">            tt=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(l!=<span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>((l&amp;<span class="number">1</span>)==<span class="number">1</span>)tt++;</span><br><span class="line">                l&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(kk&gt;=tt) &#123;</span><br><span class="line">                d[sta][t][kk]+=dfs(m[i],t+<span class="number">1</span>,kk-tt);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> d[sta][t][kk];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简洁明了的主函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    pre(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);<span class="comment">//预处理 </span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;dfs(<span class="number">0</span>,<span class="number">0</span>,k);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/题解/" rel="tag"># 题解</a>
+          
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/21/【模板】ST表/" rel="next" title="【模板】ST表">
+                <i class="fa fa-chevron-left"></i> 【模板】ST表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/21/【模板】并查集/" rel="prev" title="【模板】并查集">
+                【模板】并查集 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Josh</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/joooooosh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://chrt.github.io/" title="chrt" target="_blank">chrt</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://panda2134.tk/" title="Panda2134" target="_blank">Panda2134</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://sparky-14145.github.io/" title="Sparky_14145" target="_blank">Sparky_14145</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://n0000000000o.github.io/" title="n0000000000o" target="_blank">n0000000000o</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://loncel.github.io/" title="L_OnceL" target="_blank">L_OnceL</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力"><span class="nav-number"></span> <span class="nav-text">暴力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划正解"><span class="nav-number"></span> <span class="nav-text">动态规划正解</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Josh</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
