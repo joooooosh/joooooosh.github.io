@@ -1,5 +1,3 @@
-# joooooosh.github.io
-My Blog
-This is Josh's Blog
+# This is Josh's Blog
 
-tap here to visit
+tap [here][https://joooooosh.github.io] to visit!
