@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Josh&#39;s Blog">
 <meta property="og:description" content="欧拉函数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-16T12:04:27.180Z">
+<meta property="og:updated_time" content="2018-10-16T12:14:45.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="欧拉函数">
 <meta name="twitter:description" content="欧拉函数">
@@ -349,7 +349,7 @@ n-\frac{n}{p_{1}}-\frac{n}{p_{2}}-\dots-\frac{n}{p_{k}}</script><h3 id="性质�
 \varphi(n)=n-1</script><h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><p>依赖于：</p>
 <script type="math/tex; mode=display">
 \varphi(N)=N*\prod(\frac{1}{p}*(p-1))</script><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)e[i]=i;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(e[i]==i)<span class="comment">//当e[i]为质数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;=n;j+=i)&#123;</span><br><span class="line">            e[j]=e[j]/i*(i<span class="number">-1</span>);<span class="comment">//使其倍数均对于此数做操作，同时筛掉合数</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>e[i]即为\varphi(i)</p>
+<p>e[i]即为$\varphi(i)$</p>
 
       
     </div>
@@ -784,7 +784,7 @@ n-\frac{n}{p_{1}}-\frac{n}{p_{2}}-\dots-\frac{n}{p_{k}}</script><h3 id="性质�
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
