@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="迷宫题意：给n个点和m条无向边，求1到n的次短路。 方法一对于次短路，之前我是没学过的，模拟赛遇到此题，想了半天怎么实现，想出了自己的独特方法： 对于每个点我们都保存起点到它的最短路长度和次短路长度 123struct node&amp;#123;	int fir,sec;&amp;#125;a[maxn]; 像SPFA一样，一旦能更新就入队，但难点在于fir和sec的互相转移。  首先考虑u的最短路能够更新to">
+  <meta name="description" content="迷宫题意：给n个点和m条无向边，求1到n的次短路。">
 <meta name="keywords" content="图论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="迷宫">
 <meta property="og:url" content="https://joooooosh.github.io/2018/10/26/迷宫/index.html">
 <meta property="og:site_name" content="Josh&#39;s Blog">
-<meta property="og:description" content="迷宫题意：给n个点和m条无向边，求1到n的次短路。 方法一对于次短路，之前我是没学过的，模拟赛遇到此题，想了半天怎么实现，想出了自己的独特方法： 对于每个点我们都保存起点到它的最短路长度和次短路长度 123struct node&amp;#123;	int fir,sec;&amp;#125;a[maxn]; 像SPFA一样，一旦能更新就入队，但难点在于fir和sec的互相转移。  首先考虑u的最短路能够更新to">
+<meta property="og:description" content="迷宫题意：给n个点和m条无向边，求1到n的次短路。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-26T01:38:08.407Z">
+<meta property="og:updated_time" content="2018-10-26T01:40:38.027Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迷宫">
-<meta name="twitter:description" content="迷宫题意：给n个点和m条无向边，求1到n的次短路。 方法一对于次短路，之前我是没学过的，模拟赛遇到此题，想了半天怎么实现，想出了自己的独特方法： 对于每个点我们都保存起点到它的最短路长度和次短路长度 123struct node&amp;#123;	int fir,sec;&amp;#125;a[maxn]; 像SPFA一样，一旦能更新就入队，但难点在于fir和sec的互相转移。  首先考虑u的最短路能够更新to">
+<meta name="twitter:description" content="迷宫题意：给n个点和m条无向边，求1到n的次短路。">
 
 
 
@@ -347,7 +347,7 @@
                 
               
 
-              <time title="创建时间：2018-10-26 09:37:17 / 修改时间：09:38:08" itemprop="dateCreated datePublished" datetime="2018-10-26T09:37:17+08:00">2018-10-26</time>
+              <time title="创建时间：2018-10-26 09:37:17 / 修改时间：09:40:38" itemprop="dateCreated datePublished" datetime="2018-10-26T09:37:17+08:00">2018-10-26</time>
             
 
             
@@ -386,6 +386,7 @@
 
       
         <h2 id="迷宫"><a href="#迷宫" class="headerlink" title="迷宫"></a>迷宫</h2><p>题意：给n个点和m条无向边，求1到n的次短路。</p>
+<a id="more"></a>
 <h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>对于次短路，之前我是没学过的，模拟赛遇到此题，想了半天怎么实现，想出了自己的独特方法：</p>
 <p>对于每个点我们都保存起点到它的最短路长度和次短路长度</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> fir,sec;</span><br><span class="line">&#125;a[maxn];</span><br></pre></td></tr></table></figure>
